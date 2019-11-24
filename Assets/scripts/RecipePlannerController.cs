@@ -270,13 +270,41 @@ public class RecipePlannerController : MonoBehaviour
 
     void OnAddHopAdditionButton()
     {
-        //first get the hop type index from the drop down menu
+        Dropdown hopTypedropdown = GameObject.Find("[placeholder]").GetComponent<Dropdown>();//first get the hop type index from the drop down menu
+        int hopIndex = hopTypedropdown.value;
         //Then get the time from the drop down menu
+        Dropdown timeDropDown = GameObject.Find("[placeholder]").GetComponent<Dropdown>();
+        float hopTime = timeDropDown.value * 5.0f; //Because the indeces all increase the time by 5
         //Get the batch size from the drop down menu
+        Dropdown sizeDropDown = GameObject.Find("[placeholder]").GetComponent<Dropdown>();
+        float waterVolume = waterVolumeSwitch(sizeDropDown.value);
         //Get the starting gravity from the recipe
+        float startingGravity = currentRecipe.startingGravity;
         //Get the quantity of hops from the slider
+        Slider hopSlider = GameObject.Find("[placeholder]").GetComponent<Slider>();
+        float hopQuantity = hopSlider.value;
         //Then calculate IBUs using CalculateIBUs()
+        float hopAdditionIBUs = CalculateIBUs(hopIndex, hopQuantity, waterVolume, hopTime, startingGravity);
+        string hopName = companyInventory.availableHops[hopIndex].name;
         //Now add the hop addition to the recipe and the display
+        string listString = string.Format("{0} - {1} g - {2} min - {3} IBUs\n", hopName, hopQuantity, hopTime, hopAdditionIBUs);
+        currentRecipe.hops.Add(hopName);
+        currentRecipe.hopIndeces.Add(hopIndex);
+        currentRecipe.hopTimes.Add(hopTime);
+        currentRecipe.hopAmounts.Add(hopQuantity);
+        currentRecipe.hopIBUs.Add(hopAdditionIBUs);
+        currentRecipe.iBUs += hopAdditionIBUs;
+        if (hopTime < 30)
+        {
+            currentRecipe.aromas.Add(companyInventory.availableHops.aromas[0]); //This is a placeholder, I will need something a little more advanced later on
+            currentRecipe.flavours.Add(companyInventory.availableHops.flavours[0]);
+        }
+        else
+        {
+            currentRecipe.flavours.Add(companyInventory.availableHops.flavours[0]);
+        }
+        //Get the text object to update:
+        
     }
 
     float CalculateIBUs(int hopIndex, float hopQuantity, float waterVolume, float hoptime, float wortGravity)
@@ -290,4 +318,11 @@ public class RecipePlannerController : MonoBehaviour
         IBUout = aaRating * boilTimeFactor * bignessFactor; //This is all from https://realbeer.com/hops/research.html and should be roughly correct
         return IBUout;
     }
+
+    float waterVolumeSwitch(int index)
+    {
+        float waterVolume = 50;
+        return waterVolume;
+    }
 }
+
