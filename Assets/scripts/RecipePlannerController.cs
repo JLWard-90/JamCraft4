@@ -270,10 +270,16 @@ public class RecipePlannerController : MonoBehaviour
 
     void OnAddHopAdditionButton()
     {
-
+        //first get the hop type index from the drop down menu
+        //Then get the time from the drop down menu
+        //Get the batch size from the drop down menu
+        //Get the starting gravity from the recipe
+        //Get the quantity of hops from the slider
+        //Then calculate IBUs using CalculateIBUs()
+        //Now add the hop addition to the recipe and the display
     }
 
-    float CalculateIBUs(int hopIndex, float hopQuantity, float waterVolume, float hoptime, float wortGravity) //This may need adjusting...
+    float CalculateIBUs(int hopIndex, float hopQuantity, float waterVolume, float hoptime, float wortGravity)
     {
         float IBUout = 0;
         Hops hops = companyInventory.availableHops[hopIndex];
@@ -281,7 +287,7 @@ public class RecipePlannerController : MonoBehaviour
         float aaRating = (alphaacids * hopQuantity * 1000) / waterVolume;
         float bignessFactor = 1.65f * Mathf.Pow(0.000125f,(wortGravity - 1f));
         float boilTimeFactor = (1 - Mathf.Exp(-0.04f * hoptime)) / 4.15f;
-        IBUout = aaRating * boilTimeFactor * bignessFactor;
+        IBUout = aaRating * boilTimeFactor * bignessFactor; //This is all from https://realbeer.com/hops/research.html and should be roughly correct
         return IBUout;
     }
 }
