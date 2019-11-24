@@ -43,6 +43,7 @@ public class RecipePlannerController : MonoBehaviour
 
     public void OnExitButtonPress()
     {
+        gameController.GetComponent<TimeController>().paused = false;
         GameObject.Destroy(this.gameObject);
     }
 

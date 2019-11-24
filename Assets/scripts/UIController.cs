@@ -86,6 +86,7 @@ public class UIController : MonoBehaviour
 
     public void LoadRecipeScreen()
     {
+        gameController.GetComponent<TimeController>().paused = true;
         Debug.Log("Loading recipe screen");
         GameObject canvasObject = GameObject.Find("Canvas");
         GameObject recipeScreen = GameObject.Instantiate(recipeScreenPrefab);
