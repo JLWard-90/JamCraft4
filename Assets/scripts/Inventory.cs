@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+[System.Serializable]
+public class Inventory
 {
-    // Start is called before the first frame update
-    void Start()
+    public List<Malt> availableMalts;
+    public List<Hops> availableHops;
+    public List<Yeast> availableYeasts;
+    public Inventory()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        availableMalts = new List<Malt>();
+        availableHops = new List<Hops>();
+        availableYeasts = new List<Yeast>();
     }
 }
