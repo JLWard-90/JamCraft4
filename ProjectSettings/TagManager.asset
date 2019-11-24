@@ -6,6 +6,7 @@ TagManager:
   tags:
   - maltSlider
   - maltDropDown
+  - HopTypeDropDown
   layers:
   - Default
   - TransparentFX

@@ -253,6 +253,35 @@ public class RecipePlannerController : MonoBehaviour
             dropDownComponent.options.Add(new Dropdown.OptionData() { text = availableYeasts[i].name });
         }
         dropDownComponent.RefreshShownValue();
-        
+    }
+
+    void SetupHopAdditionDropDownMenu()
+    {
+        List<Hops> availableHops = companyInventory.availableHops;
+        GameObject dropDownMenu = GameObject.Find("HopTypeDropDown1");
+        Dropdown dropDownComponent = dropDownMenu.GetComponent<Dropdown>();
+        dropDownComponent.options.Clear();
+        for(int i=0; i<availableHops.Count; i++)
+        {
+            dropDownComponent.options.Add(new Dropdown.OptionData() { text = availableHops[i].name });
+        }
+        dropDownComponent.RefreshShownValue();
+    }
+
+    void OnAddHopAdditionButton()
+    {
+
+    }
+
+    float CalculateIBUs(int hopIndex, float hopQuantity, float waterVolume, float hoptime, float wortGravity) //This may need adjusting...
+    {
+        float IBUout = 0;
+        Hops hops = companyInventory.availableHops[hopIndex];
+        float alphaacids = hops.alphaacids;
+        float aaRating = (alphaacids * hopQuantity * 1000) / waterVolume;
+        float bignessFactor = 1.65f * Mathf.Pow(0.000125f,(wortGravity - 1f));
+        float boilTimeFactor = (1 - Mathf.Exp(-0.04f * hoptime)) / 4.15f;
+        IBUout = aaRating * boilTimeFactor * bignessFactor;
+        return IBUout;
     }
 }
