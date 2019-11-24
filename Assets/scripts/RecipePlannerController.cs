@@ -304,7 +304,8 @@ public class RecipePlannerController : MonoBehaviour
             currentRecipe.flavours.Add(companyInventory.availableHops.flavours[0]);
         }
         //Get the text object to update:
-        
+        Text hopAdditionsText = GameObject.Find("[placeholder]").GetComponent<GetMaltPercentageText>();
+        hopAdditionsText.text += listString;
     }
 
     float CalculateIBUs(int hopIndex, float hopQuantity, float waterVolume, float hoptime, float wortGravity)
