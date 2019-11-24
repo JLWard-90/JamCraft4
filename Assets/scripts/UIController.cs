@@ -9,6 +9,8 @@ public class UIController : MonoBehaviour
     GameController gameController;
     [SerializeField]
     Text timeText;
+    [SerializeField]
+    GameObject recipeScreenPrefab;
     public static UIController instance;
     private void Awake()
     {
@@ -67,10 +69,27 @@ public class UIController : MonoBehaviour
         List<string> sceneNames = gameController.sceneNames;
         for (int i = 0; i < sceneList.Count; i++)
         {
-            if (GUI.Button(new Rect(Screen.width / 20, 200 + Screen.height / 15 + Screen.height / 12 * i, 100, 30), sceneNames[i]))
+            if (GUI.Button(new Rect(Screen.width / 40, 200 + Screen.height / 15 + Screen.height / 12 * i, 100, 30), sceneNames[i]))
             {
-                gameController.LoadScene(sceneList[i]);
+                if(sceneNames[i] == "Recipe")
+                {
+                    LoadRecipeScreen();
+                }
+                else
+                {
+                    gameController.LoadScene(sceneList[i]);
+                }
+                
             }
         }
+    }
+
+    public void LoadRecipeScreen()
+    {
+        Debug.Log("Loading recipe screen");
+        GameObject canvasObject = GameObject.Find("Canvas");
+        GameObject recipeScreen = GameObject.Instantiate(recipeScreenPrefab);
+        recipeScreen.name = "RecipePanel";
+        recipeScreen.transform.SetParent(canvasObject.transform);
     }
 }
