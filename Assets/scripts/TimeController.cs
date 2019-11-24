@@ -24,6 +24,17 @@ public class TimeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if(paused)
+            {
+                paused = false;
+            }
+            else
+            {
+                paused = true;
+            }
+        }
         if (!paused)
         {
             mainTimer += Time.deltaTime;
