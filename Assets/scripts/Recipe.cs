@@ -7,19 +7,19 @@ public class Recipe
     public int batchsize; //size of the batch
     public string yeast; //yeast used
     public int yeastIndex; //index of yeast used
-    public int[] maltIndeces; //Index of each malt being used
-    public string[] malts; //names of the malts used
-    public float[] maltQuantities; //quanities of all malts used
-    public string[] hops; //Hops used
-    public int[] hopIndeces; //Index of each hop used
-    public int[] hopTimes; //Times for all hop additions in minutes
-    public float[] hopAmounts; //Amounts for each hop variety
-    public float[] hopIBUs; //IBU of each hop addition
+    public List<int> maltIndeces; //Index of each malt being used
+    public List<string> malts; //names of the malts used
+    public List<float> maltQuantities; //quanities of all malts used
+    public List<string> hops; //Hops used
+    public List<int> hopIndeces; //Index of each hop used
+    public List<int> hopTimes; //Times for all hop additions in minutes
+    public List<float> hopAmounts; //Amounts for each hop variety
+    public List<float> hopIBUs; //IBU of each hop addition
     public float colour; //EBC converted to a simple 0 to 100 scale
     public float iBUs; //International Bitterness Units
     public string name; //Name of the recipe
-    public string[] flavours; //Just an array of all of the flavours //Used to calculate tastiness
-    public string[] aromas; //An array of all of the aromas //Used to calculate tastiness
+    public List<string> flavours; //Just an array of all of the flavours //Used to calculate tastiness
+    public List<string> aromas; //An array of all of the aromas //Used to calculate tastiness
     public float gravityIBURatio; //ratio of gravity to IBUs //Used to calculate tastiness
     public float tastiness; //A tastiness score based on appropriate percentages of 
     public float quality; //Quality will equal average malt quality + average hop quality + yeast quality for a range of 0 to 30 //Used to calculate tastiness
@@ -33,18 +33,18 @@ public class Recipe
         name = "Untitled Recipe";
         yeast = "Basic Ale Yeast";
         yeastIndex = 0;
-        maltIndeces = new int[] { 0 };
-        malts = new string[] { "Pale Ale Malt" };
-        maltQuantities = new float[] { 5};
-        hops = new string[] { "Fuggles" };
-        hopIndeces = new int[] { 0 };
-        hopTimes = new int[] { 30 };
-        hopAmounts = new float[] { 30 };
-        hopIBUs = new float[] { 20 };
+        maltIndeces = new List<int>();
+        malts = new List<string>();
+        maltQuantities = new List<float>();
+        hops = new List<string>();
+        hopIndeces = new List<int>();
+        hopTimes = new List<int>();
+        hopAmounts = new List<float>();
+        hopIBUs = new List<float>();
         colour = 2;
         iBUs = 20;
-        flavours = new string[] { "Beer" };
-        aromas = new string[] { "Beer" };
+        flavours = new List<string>();
+        aromas = new List<string>();
         gravityIBURatio = 1;
         quality = 5;
         cost = 5;
@@ -54,8 +54,8 @@ public class Recipe
         alcoholByVolume = 4.5f;
         tastiness = 10;
     }
-    public Recipe(string name, string yeast, int yeastIndex, int[] maltIndeces, string[] malts, float[] maltQuantities, string[] hops, int[] hopIndeces, int[] hopTimes, 
-        float[] hopAmounts, float[] hopIBUs, float colour, float iBUs, string[] flavours, string[] aromas, float gravityIBURatio, float quality, int cost,int mouthFeel, float startingGravity,
+    public Recipe(string name, string yeast, int yeastIndex, List<int> maltIndeces, List<string> malts, List<float> maltQuantities, List<string> hops, List<int> hopIndeces, List<int> hopTimes,
+        List<float> hopAmounts, List<float> hopIBUs, float colour, float iBUs, List<string> flavours, List<string> aromas, float gravityIBURatio, float quality, int cost,int mouthFeel, float startingGravity,
         float finalGravity, float alcoholByVolume)
     {
         this.name = name;
@@ -93,6 +93,6 @@ public class Recipe
         {
             gravRatgood = 0;
         }
-        this.tastiness = quality-15 + ((mouthFeel-50)*(colour-50))/100  + gravRatgood + (aromas.Length * 2) + (flavours.Length * 3); //This will probably need some tweaks in the future...
+        this.tastiness = quality-15 + ((mouthFeel-50)*(colour-50))/100  + gravRatgood + (aromas.Count * 2) + (flavours.Count * 3); //This will probably need some tweaks in the future...
     }
 }

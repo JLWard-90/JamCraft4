@@ -828,7 +828,7 @@ GameObject:
   - component: {fileID: 7006026886921061734}
   - component: {fileID: 3561520314492657661}
   m_Layer: 0
-  m_Name: Slider
+  m_Name: HopSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -900,7 +900,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8599549868064921843}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 200
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:

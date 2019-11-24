@@ -38,6 +38,7 @@ public class RecipePlannerController : MonoBehaviour
         //Will also need to get the company inventory. We will then draw all our malt hops and yeast details from there.
         SetupMaltDropDownMenus();
         SetupYeastDropDownMenu();
+        SetupHopAdditionDropDownMenu();
         currentRecipe = new Recipe();
     }
 
@@ -270,18 +271,18 @@ public class RecipePlannerController : MonoBehaviour
 
     void OnAddHopAdditionButton()
     {
-        Dropdown hopTypedropdown = GameObject.Find("[placeholder]").GetComponent<Dropdown>();//first get the hop type index from the drop down menu
+        Dropdown hopTypedropdown = GameObject.Find("HopTypeDropDown1").GetComponent<Dropdown>();//first get the hop type index from the drop down menu
         int hopIndex = hopTypedropdown.value;
         //Then get the time from the drop down menu
-        Dropdown timeDropDown = GameObject.Find("[placeholder]").GetComponent<Dropdown>();
+        Dropdown timeDropDown = GameObject.Find("HopTimeDropDown").GetComponent<Dropdown>();
         float hopTime = timeDropDown.value * 5.0f; //Because the indeces all increase the time by 5
         //Get the batch size from the drop down menu
-        Dropdown sizeDropDown = GameObject.Find("[placeholder]").GetComponent<Dropdown>();
+        Dropdown sizeDropDown = GameObject.Find("VolumeDropDown").GetComponent<Dropdown>();
         float waterVolume = waterVolumeSwitch(sizeDropDown.value);
         //Get the starting gravity from the recipe
         float startingGravity = currentRecipe.startingGravity;
         //Get the quantity of hops from the slider
-        Slider hopSlider = GameObject.Find("[placeholder]").GetComponent<Slider>();
+        Slider hopSlider = GameObject.Find("HopSlider").GetComponent<Slider>();
         float hopQuantity = hopSlider.value;
         //Then calculate IBUs using CalculateIBUs()
         float hopAdditionIBUs = CalculateIBUs(hopIndex, hopQuantity, waterVolume, hopTime, startingGravity);
@@ -290,21 +291,19 @@ public class RecipePlannerController : MonoBehaviour
         string listString = string.Format("{0} - {1} g - {2} min - {3} IBUs\n", hopName, hopQuantity, hopTime, hopAdditionIBUs);
         currentRecipe.hops.Add(hopName);
         currentRecipe.hopIndeces.Add(hopIndex);
-        currentRecipe.hopTimes.Add(hopTime);
+        currentRecipe.hopTimes.Add((int)hopTime);
         currentRecipe.hopAmounts.Add(hopQuantity);
         currentRecipe.hopIBUs.Add(hopAdditionIBUs);
         currentRecipe.iBUs += hopAdditionIBUs;
         if (hopTime < 30)
         {
-            currentRecipe.aromas.Add(companyInventory.availableHops.aromas[0]); //This is a placeholder, I will need something a little more advanced later on
-            currentRecipe.flavours.Add(companyInventory.availableHops.flavours[0]);
+            currentRecipe.aromas.Add(companyInventory.availableHops[hopIndex].flavours[0]); //This is a placeholder, I will need something a little more advanced later on
         }
         else
         {
-            currentRecipe.flavours.Add(companyInventory.availableHops.flavours[0]);
         }
         //Get the text object to update:
-        Text hopAdditionsText = GameObject.Find("[placeholder]").GetComponent<GetMaltPercentageText>();
+        Text hopAdditionsText = GameObject.Find("[placeholder]").GetComponent<Text>();
         hopAdditionsText.text += listString;
     }
 
