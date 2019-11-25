@@ -276,7 +276,7 @@ public class RecipePlannerController : MonoBehaviour
         dropDownComponent.RefreshShownValue();
     }
 
-    void OnAddHopAdditionButton()
+    public void OnAddHopAdditionButton()
     {
         Dropdown hopTypedropdown = GameObject.Find("HopTypeDropDown1").GetComponent<Dropdown>();//first get the hop type index from the drop down menu
         int hopIndex = hopTypedropdown.value;
@@ -284,18 +284,18 @@ public class RecipePlannerController : MonoBehaviour
         Dropdown timeDropDown = GameObject.Find("HopTimeDropDown").GetComponent<Dropdown>();
         float hopTime = timeDropDown.value * 5.0f; //Because the indeces all increase the time by 5
         //Get the batch size from the drop down menu
-        Dropdown sizeDropDown = GameObject.Find("VolumeDropDown").GetComponent<Dropdown>();
+        Dropdown sizeDropDown = GameObject.Find("VolumeDropdown").GetComponent<Dropdown>();
         float waterVolume = waterVolumeSwitch(sizeDropDown.value);
         //Get the starting gravity from the recipe
         float startingGravity = currentRecipe.startingGravity;
         //Get the quantity of hops from the slider
-        Slider hopSlider = GameObject.Find("HopSlider").GetComponent<Slider>();
+        Slider hopSlider = GameObject.Find("hopSlider").GetComponent<Slider>();
         float hopQuantity = hopSlider.value;
         //Then calculate IBUs using CalculateIBUs()
         float hopAdditionIBUs = CalculateIBUs(hopIndex, hopQuantity, waterVolume, hopTime, startingGravity);
         string hopName = companyInventory.availableHops[hopIndex].name;
         //Now add the hop addition to the recipe and the display
-        string listString = string.Format("{0} - {1} g - {2} min - {3} IBUs\n", hopName, hopQuantity, hopTime, hopAdditionIBUs);
+        string listString = string.Format("{0} - {1} g - {2} min - {3} IBUs\n", hopName, (int)hopQuantity, (int)hopTime, (int)hopAdditionIBUs);
         currentRecipe.hops.Add(hopName);
         currentRecipe.hopIndeces.Add(hopIndex);
         currentRecipe.hopTimes.Add((int)hopTime);
@@ -310,7 +310,7 @@ public class RecipePlannerController : MonoBehaviour
         {
         }
         //Get the text object to update:
-        Text hopAdditionsText = GameObject.Find("[placeholder]").GetComponent<Text>();
+        Text hopAdditionsText = GameObject.Find("HopAdditionsText").GetComponent<Text>();
         hopAdditionsText.text += listString;
     }
 
