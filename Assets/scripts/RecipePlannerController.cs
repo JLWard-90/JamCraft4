@@ -71,6 +71,13 @@ public class RecipePlannerController : MonoBehaviour
         }
      }
 
+    public void OnHopSliderSlide(Slider hopSlider)
+    {
+        //Should just need to update  hop quantity text here
+        Text hopQuantityText = GameObject.Find("HopAmountText").GetComponent<Text>();
+        hopQuantityText.text = string.Format("{0} g",(int)hopSlider.value);
+    }
+
     public void UpdateRecipe()
     {
 
