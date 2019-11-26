@@ -3169,8 +3169,9 @@ GameObject:
   m_Component:
   - component: {fileID: 862867671555296595}
   - component: {fileID: 4581367765635002474}
+  - component: {fileID: 5529125355119912275}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: WeightSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3242,12 +3243,24 @@ MonoBehaviour:
   m_HandleRect: {fileID: 7665398368161928251}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 50
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5529125355119912275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6302356423433171985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89288865ad6307f499babfc27728f055, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6857903829170117235
 GameObject:
   m_ObjectHideFlags: 0
@@ -3592,7 +3605,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 100 kg
+  m_Text: 5.00 kg
 --- !u!1 &7462139772951166248
 GameObject:
   m_ObjectHideFlags: 0
@@ -17362,7 +17375,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 650, y: 250}
+  m_AnchoredPosition: {x: 600, y: 250}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &7643747313763493601

@@ -80,7 +80,27 @@ public class RecipePlannerController : MonoBehaviour
 
     public void UpdateRecipe()
     {
+        float waterVolume = waterVolumeSwitch(GameObject.Find("VolumeDropdown").GetComponent<Dropdown>().value);
+        float grainWeight = GameObject.Find("WeightSlider").GetComponent<Slider>().value;
+        List<float> grainQuantities = new List<float>();
+        List<int> grainIndeces = new List<int>();
+        List<string> grainNames = new List<string>();
+        for (int i=0;i<sliders.Length;i++)
+        {
+            int grainIndex = GetMaltDropDown(sliders[i].name).GetComponent<Dropdown>().value;
+            if(grainIndex > 0) //If the type of grain is not none
+            {
+                grainIndeces.Add(grainIndex);
+                grainQuantities.Add(sliders[i].GetComponent<Slider>().value / 100f); //Divide by 100 to turn percentage into fraction
+                grainNames.Add(companyInventory.availableMalts[i].name); //get malt name from the malt held in the availableMalts list
+            }
+        }
+    }
 
+    public float CalculateColour()
+    {
+        float ebc = 15;
+        return ebc;
     }
 
     public int UpdateOtherSliders(GameObject currentSlider, float sliderValue)
@@ -226,6 +246,13 @@ public class RecipePlannerController : MonoBehaviour
         return 0;
     }
 
+    public void OnWeightSliderSlide(Slider thisSlider)
+    {
+        //Should just need to update  hop quantity text here
+        Text weightText = GameObject.Find("WeightText").GetComponent<Text>();
+        weightText.text = string.Format("{0} kg", thisSlider.value.ToString("F2"));
+    }
+
     public float GetStartingGravity(float batchSize, float grainWeight)
     {
         float gravity = 1.0f;
@@ -329,6 +356,18 @@ public class RecipePlannerController : MonoBehaviour
     float waterVolumeSwitch(int index)
     {
         float waterVolume = 50;
+        switch(index)
+        {
+            case 0:
+                waterVolume = 50;
+                break;
+            case 1:
+                waterVolume = 75;
+                break;
+            case 2:
+                waterVolume = 150;
+                break;
+        }
         return waterVolume;
     }
 }

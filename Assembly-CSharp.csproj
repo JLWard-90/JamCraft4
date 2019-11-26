@@ -57,6 +57,7 @@
   <ItemGroup>
      <Compile Include="Assets\scripts\CompanyController.cs" />
      <Compile Include="Assets\scripts\GameController.cs" />
+     <Compile Include="Assets\scripts\grainWeightSlider.cs" />
      <Compile Include="Assets\scripts\Hops.cs" />
      <Compile Include="Assets\scripts\HopSliderController.cs" />
      <Compile Include="Assets\scripts\Inventory.cs" />
