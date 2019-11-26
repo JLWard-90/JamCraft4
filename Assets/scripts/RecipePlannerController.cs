@@ -319,7 +319,7 @@ public class RecipePlannerController : MonoBehaviour
         float IBUout = 0;
         Hops hops = companyInventory.availableHops[hopIndex];
         float alphaacids = hops.alphaacids;
-        float aaRating = (alphaacids * hopQuantity * 1000) / waterVolume;
+        float aaRating = (alphaacids * hopQuantity * 1000) / (waterVolume*1000);
         float bignessFactor = 1.65f * Mathf.Pow(0.000125f,(wortGravity - 1f));
         float boilTimeFactor = (1 - Mathf.Exp(-0.04f * hoptime)) / 4.15f;
         IBUout = aaRating * boilTimeFactor * bignessFactor; //This is all from https://realbeer.com/hops/research.html and should be roughly correct
