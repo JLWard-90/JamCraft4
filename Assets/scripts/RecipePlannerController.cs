@@ -85,6 +85,8 @@ public class RecipePlannerController : MonoBehaviour
         List<float> grainQuantities = new List<float>();
         List<int> grainIndeces = new List<int>();
         List<string> grainNames = new List<string>();
+        List<float> grainEBCs = new List<float>();
+        List<float> grainWeights = new List<float>();
         for (int i=0;i<sliders.Length;i++)
         {
             int grainIndex = GetMaltDropDown(sliders[i].name).GetComponent<Dropdown>().value;
@@ -93,8 +95,12 @@ public class RecipePlannerController : MonoBehaviour
                 grainIndeces.Add(grainIndex);
                 grainQuantities.Add(sliders[i].GetComponent<Slider>().value / 100f); //Divide by 100 to turn percentage into fraction
                 grainNames.Add(companyInventory.availableMalts[i].name); //get malt name from the malt held in the availableMalts list
+                grainWeights.Add(grainWeight * sliders[i].GetComponent<Slider>().value / 100f);
+                grainEBCs.Add(companyInventory.availableMalts[i].EBC);
             }
         }
+        float colour = CalculateColour(waterVolume, grainEBCs, grainWeights);
+
     }
 
     public float CalculateColour(float volume, List<float> grainEBCs, List<float> grainMasses)
