@@ -97,9 +97,24 @@ public class RecipePlannerController : MonoBehaviour
         }
     }
 
-    public float CalculateColour()
+    public float CalculateColour(float volume, List<float> grainEBCs, List<float> grainMasses)
     {
-        float ebc = 15;
+        //EBC = 1.97 SRM
+        //SRM color = 1.4922 * (MCU ** 0.6859)
+        //MCU = (Weight of grain in lbs) * (Color of grain in degrees lovibond) / (volume in gallons)
+        //SRM is approximately equal to degrees lovibond
+        // 1 US Gallon == 3.78541 L
+        //1 lbs = 0.454 kg
+        float ebc = 0;
+        if (grainEBCs.Count == 0 || grainEBCs ==null || grainMasses ==null)
+        {
+            return ebc;
+        }
+        for (int i=0; i<grainEBCs.Count; i++)
+        {
+            float MCU = (grainMasses / 0.454f) * (grainEBCs[i] / 1.97) / (volume / 3.78541f);
+            ebc += 1.97f*(1.4922f * (Mathf.pow(MCU,0.6859f)));
+        }
         return ebc;
     }
 
