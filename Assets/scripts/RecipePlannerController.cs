@@ -63,6 +63,8 @@ public class RecipePlannerController : MonoBehaviour
         loadRecipeDialogue.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, 0);
         loadRecipeDialogue.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, 0);
         loadRecipeDialogue.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Right, 0, 0);
+        loadRecipeDialogue.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+        loadRecipeDialogue.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
     }
 
     public void onSliderSlide(string sliderName, float sliderValue)

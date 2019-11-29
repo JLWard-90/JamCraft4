@@ -92,5 +92,12 @@ public class UIController : MonoBehaviour
         GameObject recipeScreen = GameObject.Instantiate(recipeScreenPrefab);
         recipeScreen.name = "RecipePanel";
         recipeScreen.transform.SetParent(canvasObject.transform);
+        recipeScreen.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Bottom, 0, 0);
+        recipeScreen.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, 0);
+        recipeScreen.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, 0);
+        recipeScreen.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Right, 0, 0);
+        recipeScreen.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        recipeScreen.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+        recipeScreen.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
     }
 }

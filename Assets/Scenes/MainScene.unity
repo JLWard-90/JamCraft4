@@ -1419,7 +1419,7 @@ PrefabInstance:
         type: 3}
       propertyPath: recipeScreenPrefab
       value: 
-      objectReference: {fileID: 7643747313763493604, guid: 648fb902315d5924fb10252b9688ac03,
+      objectReference: {fileID: 4009611487242437223, guid: 7d54e60535522844eb54e0779722218c,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7387e005386247349a19ebe714fd92ed, type: 3}
