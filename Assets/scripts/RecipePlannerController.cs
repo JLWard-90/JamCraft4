@@ -114,7 +114,7 @@ public class RecipePlannerController : MonoBehaviour
             }
         }
         float colour = CalculateColour(waterVolume, grainEBCs, grainWeights);
-        string recipeName = GameObject.Find("InputField").GetComponentsInChildren<Text>()[1].text;
+        string recipeName = GameObject.Find("InputField").transform.Find("Text").GetComponent<Text>().text;
         //string recipeName = "test recipe";
         int yeastIndex = GameObject.Find("YeastDropdown").GetComponent<Dropdown>().value;
         string yeastName = companyInventory.availableYeasts[yeastIndex].name;
@@ -507,6 +507,11 @@ public class RecipePlannerController : MonoBehaviour
                 break;
         }
         return waterVolume;
+    }
+
+    public void LoadRecipe(int recipeIndex)
+    {
+        Debug.Log(recipeIndex);
     }
 }
 
