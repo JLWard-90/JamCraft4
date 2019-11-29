@@ -100,17 +100,33 @@ public class RecipePlannerController : MonoBehaviour
             }
         }
         float colour = CalculateColour(waterVolume, grainEBCs, grainWeights);
-        string recipeName = GameObject.Find("InputField").GetComponent<Text>().text;
+        //string recipeName = GameObject.Find("InputField").GetComponent<Text>().text;
+        string recipeName = "test recipe";
         int yeastIndex = GameObject.Find("YeastDropdown").GetComponent<Dropdown>().value;
         string yeastName = companyInventory.availableYeasts[yeastIndex].name;
         float startingGravity = GetStartingGravity(waterVolume, grainWeight);
         float buTOguRatio = currentRecipe.iBUs / (startingGravity - 1); //The bitternesss units to gravity units ratio
         float recipeQuality = CalculateQuality(grainIndeces, grainQuantities, currentRecipe.hopIndeces, currentRecipe.hopAmounts, yeastIndex);
         int recipeCost = CalculateCost(grainIndeces, grainWeights, currentRecipe.hopIndeces, currentRecipe.hopAmounts, yeastIndex);
-        float mouthFeel = GameObject.Find("FellSlider").GetComponent<Slider>().value;
+        float mouthFeel = GameObject.Find("FeelSlider").GetComponent<Slider>().value;
         float finalGravity = CalculateFinalGravity(yeastIndex, startingGravity, mouthFeel);
         float aBV = CalculateABV(startingGravity, finalGravity);
         currentRecipe = new Recipe(recipeName, yeastName, yeastIndex, grainIndeces, grainNames, grainWeights, currentRecipe.hops, currentRecipe.hopIndeces, currentRecipe.hopTimes, currentRecipe.hopAmounts, currentRecipe.hopIBUs, colour, currentRecipe.iBUs, currentRecipe.flavours, currentRecipe.aromas, buTOguRatio, recipeQuality, recipeCost, (int)mouthFeel, startingGravity, finalGravity, aBV);
+    }
+
+    public void UpdateResultsText()
+    {
+        UpdateRecipe();
+        Text startingGravityText = GameObject.Find("StartingGravityText").GetComponent<Text>();
+        Text finalGravityText = GameObject.Find("FinalGravityText").GetComponent<Text>();
+        Text aBVText = GameObject.Find("ABVText").GetComponent<Text>();
+        Text colourText = GameObject.Find("ColourText").GetComponent<Text>();
+        Text bitternessText = GameObject.Find("IBUText").GetComponent<Text>();
+        startingGravityText.text = string.Format("Starting Gravity = {0}", currentRecipe.startingGravity.ToString("F3"));
+        finalGravityText.text = string.Format("Final Gravity = {0}", currentRecipe.finalGravity.ToString("F3"));
+        aBVText.text = string.Format("ABV = {0}%", currentRecipe.alcoholByVolume.ToString("F1"));
+        colourText.text = string.Format("Colour = {0} EBC", (int)currentRecipe.colour);
+        bitternessText.text = string.Format("Bitterness = {0} IBUs", currentRecipe.iBUs);
     }
 
     public float CalculateABV(float startingGravity, float finalGravity)
@@ -124,6 +140,7 @@ public class RecipePlannerController : MonoBehaviour
     {
         float finalGravity = 1.0f;
         float yeastFloor = companyInventory.availableYeasts[yeastIndex].minGravity;
+        //Debug.Log(yeastFloor);
         if (startingGravity > yeastFloor)
         {
             finalGravity = yeastFloor;
@@ -133,7 +150,8 @@ public class RecipePlannerController : MonoBehaviour
             return startingGravity;
         }
         float additionalPoints = mouthfeel / 10;
-        finalGravity += additionalPoints;
+        //Debug.Log(additionalPoints);
+        finalGravity += additionalPoints / 1000;
         if (finalGravity < startingGravity)
         {
             return finalGravity;
@@ -163,6 +181,8 @@ public class RecipePlannerController : MonoBehaviour
     {
         float quality = 0;
         float maltQuality = 0;
+        //Debug.Log(maltIndeces.Count);
+        //Debug.Log(maltQuantities.Count);
         for (int i=0; i < maltIndeces.Count; i++)
         {
             maltQuality += maltQuantities[i] * companyInventory.availableMalts[maltIndeces[i]].quality;//Weight quality by fractional quantity to return an average quality value
@@ -224,6 +244,7 @@ public class RecipePlannerController : MonoBehaviour
         //Debug.Log(countMalts);
         if (countMalts == 1)
         {
+            currentSlider.GetComponent<Slider>().value = 100;
             return 0;
         }
         else if(countMalts == 0)
@@ -369,7 +390,7 @@ public class RecipePlannerController : MonoBehaviour
             Dropdown dropDownComponent = dropdown.GetComponent<Dropdown>();
             dropDownComponent.options.Clear();
             dropDownComponent.options.Add(new Dropdown.OptionData() { text = "None" });
-            for(int i=0; i<availableMalts.Count; i++)
+            for(int i=1; i<availableMalts.Count; i++)
             {
                 dropDownComponent.options.Add(new Dropdown.OptionData() { text = availableMalts[i].name });
             }
@@ -439,6 +460,7 @@ public class RecipePlannerController : MonoBehaviour
         //Get the text object to update:
         Text hopAdditionsText = GameObject.Find("HopAdditionsText").GetComponent<Text>();
         hopAdditionsText.text += listString;
+        UpdateResultsText();
     }
 
     float CalculateIBUs(int hopIndex, float hopQuantity, float waterVolume, float hoptime, float wortGravity)

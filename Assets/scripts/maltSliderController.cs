@@ -25,6 +25,6 @@ public class maltSliderController : MonoBehaviour
             Debug.Log("Sliding");
             recipePlannerController.onSliderSlide(thisSliderName, thisSlider.value);
         }
-
+        recipePlannerController.UpdateResultsText();
     }
 }

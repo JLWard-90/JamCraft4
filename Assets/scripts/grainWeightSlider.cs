@@ -19,6 +19,7 @@ public class grainWeightSlider : MonoBehaviour
     {
         Debug.Log("weight slider sliding...");
         recipePlannerController.OnWeightSliderSlide(thisSlider);
+        recipePlannerController.UpdateResultsText();
     }
 
 }

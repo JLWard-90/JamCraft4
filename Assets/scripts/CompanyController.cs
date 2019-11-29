@@ -56,6 +56,7 @@ public class CompanyController : MonoBehaviour
     public void InitStartingInventory()
     {
         inventory = new Inventory();
+        inventory.availableMalts.Add(new Malt("Dummy Malt", "Base", 5, 0.8f, 15, new string[] { "beer falvour1", "beer flavour2" }, 2));
         inventory.availableMalts.Add(new Malt("2 Row Pale Ale", "Base", 5, 0.8f, 15, new string[] { "beer falvour1", "beer flavour2" }, 2));
         inventory.availableMalts.Add(new Malt("Cara120 EBC", "Crysal/Cara", 120, 0.7f, 15, new string[] { "Caramel" }, 3));
         inventory.availableHops.Add(new Hops("Brewer's Gold", "Bittering", new string[] { "Fruity", "Spicy" }, 50, 15, 5));
