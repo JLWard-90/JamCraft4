@@ -100,7 +100,86 @@ public class RecipePlannerController : MonoBehaviour
             }
         }
         float colour = CalculateColour(waterVolume, grainEBCs, grainWeights);
+        string recipeName = GameObject.Find("InputField").GetComponent<Text>().text;
+        int yeastIndex = GameObject.Find("YeastDropdown").GetComponent<Dropdown>().value;
+        string yeastName = companyInventory.availableYeasts[yeastIndex].name;
+        float startingGravity = GetStartingGravity(waterVolume, grainWeight);
+        float buTOguRatio = currentRecipe.iBUs / (startingGravity - 1); //The bitternesss units to gravity units ratio
+        float recipeQuality = CalculateQuality(grainIndeces, grainQuantities, currentRecipe.hopIndeces, currentRecipe.hopAmounts, yeastIndex);
+        int recipeCost = CalculateCost(grainIndeces, grainWeights, currentRecipe.hopIndeces, currentRecipe.hopAmounts, yeastIndex);
+        float mouthFeel = GameObject.Find("FellSlider").GetComponent<Slider>().value;
+        float finalGravity = CalculateFinalGravity(yeastIndex, startingGravity, mouthFeel);
+        float aBV = CalculateABV(startingGravity, finalGravity);
+        currentRecipe = new Recipe(recipeName, yeastName, yeastIndex, grainIndeces, grainNames, grainWeights, currentRecipe.hops, currentRecipe.hopIndeces, currentRecipe.hopTimes, currentRecipe.hopAmounts, currentRecipe.hopIBUs, colour, currentRecipe.iBUs, currentRecipe.flavours, currentRecipe.aromas, buTOguRatio, recipeQuality, recipeCost, (int)mouthFeel, startingGravity, finalGravity, aBV);
+    }
 
+    public float CalculateABV(float startingGravity, float finalGravity)
+    {
+        float aBV = 0;
+        aBV = (startingGravity - finalGravity) * 1000 * 0.129f;
+        return aBV;
+    }
+
+    public float CalculateFinalGravity(int yeastIndex, float startingGravity, float mouthfeel)
+    {
+        float finalGravity = 1.0f;
+        float yeastFloor = companyInventory.availableYeasts[yeastIndex].minGravity;
+        if (startingGravity > yeastFloor)
+        {
+            finalGravity = yeastFloor;
+        }
+        else
+        {
+            return startingGravity;
+        }
+        float additionalPoints = mouthfeel / 10;
+        finalGravity += additionalPoints;
+        if (finalGravity < startingGravity)
+        {
+            return finalGravity;
+        }
+        else
+        {
+            return startingGravity;
+        }
+    }
+
+    public int CalculateCost(List<int> maltIndeces, List<float> maltWeights, List<int> hopIndeces, List<float> hopWeights, int yeastIndex)
+    {
+        float cost = 0;
+        cost += (float)companyInventory.availableYeasts[yeastIndex].price;
+        for (int i=0; i<maltIndeces.Count;i++)
+        {
+            cost += companyInventory.availableMalts[maltIndeces[i]].price * maltWeights[i];
+        }
+        for (int i=0; i<hopIndeces.Count; i++)
+        {
+            cost += companyInventory.availableHops[hopIndeces[i]].price * hopWeights[i];
+        }
+        return (int)cost;
+    }
+
+    public float CalculateQuality(List<int> maltIndeces, List<float> maltQuantities, List<int> hopIndeces, List<float> hopQuantities, int yeastIndex)
+    {
+        float quality = 0;
+        float maltQuality = 0;
+        for (int i=0; i < maltIndeces.Count; i++)
+        {
+            maltQuality += maltQuantities[i] * companyInventory.availableMalts[maltIndeces[i]].quality;//Weight quality by fractional quantity to return an average quality value
+        }
+        float hopQuality = 0;
+        float hopQuantity = 0;
+        for (int i=0; i<hopIndeces.Count; i++)
+        {
+            hopQuantity += hopQuantities[i];
+        }
+        for (int i=0; i<hopIndeces.Count; i++)
+        {
+            hopQuality += companyInventory.availableHops[hopIndeces[i]].quality * (hopQuantities[i] / hopQuantity);
+        }
+        float yeastQuality = companyInventory.availableYeasts[yeastIndex].quality;
+        quality = maltQuality + hopQuality + yeastQuality;
+        return quality;
     }
 
     public float CalculateColour(float volume, List<float> grainEBCs, List<float> grainMasses)
@@ -118,8 +197,8 @@ public class RecipePlannerController : MonoBehaviour
         }
         for (int i=0; i<grainEBCs.Count; i++)
         {
-            float MCU = (grainMasses / 0.454f) * (grainEBCs[i] / 1.97) / (volume / 3.78541f);
-            ebc += 1.97f*(1.4922f * (Mathf.pow(MCU,0.6859f)));
+            float MCU = (grainMasses[i] / 0.454f) * (grainEBCs[i] / 1.97f) / (volume / 3.78541f);
+            ebc += 1.97f*(1.4922f * (Mathf.Pow(MCU,0.6859f)));
         }
         return ebc;
     }
