@@ -13,6 +13,8 @@ public class RecipePlannerController : MonoBehaviour
     Yeast currentYeastToUse;
     Inventory companyInventory;
     CompanyController companyController;
+    [SerializeField]
+    GameObject loadRecipePrefab;
     private void Awake()
     {
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
@@ -51,6 +53,16 @@ public class RecipePlannerController : MonoBehaviour
     public void OnSaveButtonPress()
     {
         companyController.recipes.Add(currentRecipe);
+    }
+
+    public void OnLoadButtonPressed()
+    {
+        GameObject loadRecipeDialogue = GameObject.Instantiate(loadRecipePrefab);
+        loadRecipeDialogue.transform.SetParent(this.transform);
+        loadRecipeDialogue.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Bottom, 0, 0);
+        loadRecipeDialogue.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, 0);
+        loadRecipeDialogue.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, 0);
+        loadRecipeDialogue.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Right, 0, 0);
     }
 
     public void onSliderSlide(string sliderName, float sliderValue)
@@ -100,12 +112,12 @@ public class RecipePlannerController : MonoBehaviour
             }
         }
         float colour = CalculateColour(waterVolume, grainEBCs, grainWeights);
-        //string recipeName = GameObject.Find("InputField").GetComponent<Text>().text;
-        string recipeName = "test recipe";
+        string recipeName = GameObject.Find("InputField").GetComponentsInChildren<Text>()[1].text;
+        //string recipeName = "test recipe";
         int yeastIndex = GameObject.Find("YeastDropdown").GetComponent<Dropdown>().value;
         string yeastName = companyInventory.availableYeasts[yeastIndex].name;
         float startingGravity = GetStartingGravity(waterVolume, grainWeight);
-        float buTOguRatio = currentRecipe.iBUs / (startingGravity - 1); //The bitternesss units to gravity units ratio
+        float buTOguRatio = currentRecipe.iBUs / ((startingGravity - 1)*1000); //The bitternesss units to gravity units ratio
         float recipeQuality = CalculateQuality(grainIndeces, grainQuantities, currentRecipe.hopIndeces, currentRecipe.hopAmounts, yeastIndex);
         int recipeCost = CalculateCost(grainIndeces, grainWeights, currentRecipe.hopIndeces, currentRecipe.hopAmounts, yeastIndex);
         float mouthFeel = GameObject.Find("FeelSlider").GetComponent<Slider>().value;
@@ -122,11 +134,13 @@ public class RecipePlannerController : MonoBehaviour
         Text aBVText = GameObject.Find("ABVText").GetComponent<Text>();
         Text colourText = GameObject.Find("ColourText").GetComponent<Text>();
         Text bitternessText = GameObject.Find("IBUText").GetComponent<Text>();
+        Text costText = GameObject.Find("CostText").GetComponent<Text>();
         startingGravityText.text = string.Format("Starting Gravity = {0}", currentRecipe.startingGravity.ToString("F3"));
         finalGravityText.text = string.Format("Final Gravity = {0}", currentRecipe.finalGravity.ToString("F3"));
         aBVText.text = string.Format("ABV = {0}%", currentRecipe.alcoholByVolume.ToString("F1"));
         colourText.text = string.Format("Colour = {0} EBC", (int)currentRecipe.colour);
-        bitternessText.text = string.Format("Bitterness = {0} IBUs", currentRecipe.iBUs);
+        bitternessText.text = string.Format("Bitterness = {0} IBUs", currentRecipe.iBUs.ToString("F1"));
+        costText.text = string.Format("Cost: £{0}", currentRecipe.cost);
     }
 
     public float CalculateABV(float startingGravity, float finalGravity)
@@ -172,7 +186,7 @@ public class RecipePlannerController : MonoBehaviour
         }
         for (int i=0; i<hopIndeces.Count; i++)
         {
-            cost += companyInventory.availableHops[hopIndeces[i]].price * hopWeights[i];
+            cost += companyInventory.availableHops[hopIndeces[i]].price * hopWeights[i] / 100;
         }
         return (int)cost;
     }
