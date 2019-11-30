@@ -41,8 +41,8 @@ public class Recipe
         hopTimes = new List<int>();
         hopAmounts = new List<float>();
         hopIBUs = new List<float>();
-        colour = 2;
-        iBUs = 20;
+        colour = 0;
+        iBUs = 0;
         flavours = new List<string>();
         aromas = new List<string>();
         gravityIBURatio = 1;

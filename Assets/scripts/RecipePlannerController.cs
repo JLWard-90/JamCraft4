@@ -7,7 +7,7 @@ public class RecipePlannerController : MonoBehaviour
 {
     GameController gameController;
     float[] sliderValues;
-    GameObject[] sliders;
+    List<GameObject> sliders;
     public bool[] toAdjust;
     Recipe currentRecipe;
     Yeast currentYeastToUse;
@@ -23,9 +23,10 @@ public class RecipePlannerController : MonoBehaviour
 
     private void Start()
     {
-        sliders = GameObject.FindGameObjectsWithTag("maltSlider");
-        sliderValues = new float[sliders.Length];
-        toAdjust = new bool[sliders.Length];
+        //sliders = GameObject.FindGameObjectsWithTag("maltSlider");
+        sliders = OrganiseSliders();
+        sliderValues = new float[sliders.Count];
+        toAdjust = new bool[sliders.Count];
         for (int i=0; i<sliderValues.Length; i++)
         {
             sliderValues[i] = sliders[i].GetComponent<Slider>().value;
@@ -80,7 +81,7 @@ public class RecipePlannerController : MonoBehaviour
             sliders[returnMyIndex(sliderName)].GetComponent<Slider>().value = 0;
         }
         UpdateSliderTexts();
-        for (int i=0; i<sliders.Length; i++)
+        for (int i=0; i<sliders.Count; i++)
         {
             toAdjust[i] = true;
         }
@@ -102,7 +103,7 @@ public class RecipePlannerController : MonoBehaviour
         List<string> grainNames = new List<string>();
         List<float> grainEBCs = new List<float>();
         List<float> grainWeights = new List<float>();
-        for (int i=0;i<sliders.Length;i++)
+        for (int i=0;i<sliders.Count;i++)
         {
             int grainIndex = GetMaltDropDown(sliders[i].name).GetComponent<Dropdown>().value;
             if(grainIndex > 0) //If the type of grain is not none
@@ -244,7 +245,7 @@ public class RecipePlannerController : MonoBehaviour
     {
         string sliderName = currentSlider.name;
         int countMalts = 0;
-        for (int i = 0; i < sliders.Length; i++)//each (GameObject slider in sliders)
+        for (int i = 0; i < sliders.Count; i++)//each (GameObject slider in sliders)
         {
             GameObject slider = sliders[i];
             //Adjust each slider accordingly if the dropdown menu is not none
@@ -374,7 +375,7 @@ public class RecipePlannerController : MonoBehaviour
 
     public int returnMyIndex(string sliderName)
     {
-        for (int i=0; i<sliders.Length;i++)
+        for (int i=0; i<sliders.Count;i++)
         {
             if(sliders[i].name == sliderName)
             {
@@ -510,9 +511,77 @@ public class RecipePlannerController : MonoBehaviour
         return waterVolume;
     }
 
+    int waterVolumeReverseSwitch(float waterVolume)
+    {
+        int index = 0;
+        switch(waterVolume)
+        {
+            case 50:
+                index = 0;
+                break;
+            case 75:
+                index = 1;
+                break;
+            case 150:
+                index = 2;
+                break;
+        }
+        return index;
+    }
+
     public void LoadRecipe(int recipeIndex)
     {
         Debug.Log(recipeIndex);
+        currentRecipe = companyController.recipes[recipeIndex];
+        float grainWeight = 0;
+        for (int i=0; i < currentRecipe.maltIndeces.Count; i++)
+        {
+            grainWeight += currentRecipe.maltQuantities[i];
+        }
+        /*Debug.Log("grain weight total:");
+        Debug.Log(grainWeight);
+        Debug.Log(currentRecipe.maltIndeces[0]);
+        Debug.Log(currentRecipe.maltIndeces[1]);*/
+        for (int i  = 0; i < currentRecipe.maltIndeces.Count; i++)
+        {
+            GameObject maltDropdownMenu = GetMaltDropDown(sliders[i].name);
+            maltDropdownMenu.GetComponent<Dropdown>().value = currentRecipe.maltIndeces[i];
+            toAdjust[i] = false; //Turn value change listener off
+            sliders[i].GetComponent<Slider>().value = (currentRecipe.maltQuantities[i] / grainWeight) * 100; //Change the value
+            toAdjust[i] = true; //Turn listener back on again
+        }
+        //Update yeast dropdown
+        GameObject.Find("YeastDropdown").GetComponent<Dropdown>().value = currentRecipe.yeastIndex;
+        //Update the hop additions text box:
+        Text hopAdditionsText = GameObject.Find("HopAdditionsText").GetComponent<Text>();
+        hopAdditionsText.text = "";
+        for (int i = 0; i<currentRecipe.hopIndeces.Count; i++)
+        {
+            string listString = string.Format("{0} - {1} g - {2} min - {3} IBUs\n", currentRecipe.hops[i], (int)currentRecipe.hopAmounts[i], (int)currentRecipe.hopTimes[i], (int)currentRecipe.hopIBUs[i]);
+            hopAdditionsText.text += listString;
+        }
+        //update the water volume:
+        int volumeIndex = waterVolumeReverseSwitch(currentRecipe.batchsize);
+        GameObject.Find("VolumeDropdown").GetComponent<Dropdown>().value = volumeIndex;
+        //Update the grain weight
+        GameObject.Find("WeightSlider").GetComponent<Slider>().value = grainWeight;
+        //Update the mouthfeel slider:
+        GameObject.Find("FeelSlider").GetComponent<Slider>().value = currentRecipe.mouthFeel;
+        //Finally update the result text:
+        UpdateResultsText();
+    }
+
+    public List<GameObject> OrganiseSliders()
+    {
+        List<GameObject> sliders = new List<GameObject>();
+        sliders.Add(GameObject.Find("Maltslider1"));
+        sliders.Add(GameObject.Find("Maltslider2"));
+        sliders.Add(GameObject.Find("Maltslider3"));
+        sliders.Add(GameObject.Find("Maltslider4"));
+        sliders.Add(GameObject.Find("Maltslider5"));
+        sliders.Add(GameObject.Find("Maltslider6"));
+        sliders.Add(GameObject.Find("Maltslider7"));
+        return sliders;
     }
 }
 

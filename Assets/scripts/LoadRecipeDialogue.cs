@@ -13,7 +13,16 @@ public class LoadRecipeDialogue : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        recipePlannerController = this.GetComponentInParent<RecipePlannerController>();
+        //Debug.Log(openerType);
+        switch (openerType)
+        {
+            case "recipe":
+                recipePlannerController = this.GetComponentInParent<RecipePlannerController>();
+                break;
+            case "mash tun":
+                mashTun = GameObject.Find("MashTun").GetComponent<MashTunController>();
+                break;
+        }
         companyController = GameObject.Find("CompanyController").GetComponent<CompanyController>();
         savedRecipes = companyController.recipes;
         SetupDropDownList();
@@ -54,6 +63,7 @@ public class LoadRecipeDialogue : MonoBehaviour
 
     void SetupDropDownList()
     {
+        savedRecipes = companyController.recipes;
         Dropdown recipeDropdown = GameObject.Find("RecipeDropdown").GetComponent<Dropdown>();
         recipeDropdown.options.Clear();
         for (int i=0; i<savedRecipes.Count;i++)
