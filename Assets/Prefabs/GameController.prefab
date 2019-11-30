@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9081160137636629456}
   - component: {fileID: 9081160137636629457}
   - component: {fileID: 9081160137636629462}
+  - component: {fileID: 5878256390372182613}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -48,6 +49,7 @@ MonoBehaviour:
   gameTime: 0
   gameTimeDayLength: 8
   gameDay: 0
+  paused: 0
 --- !u!114 &9081160137636629462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,3 +72,16 @@ MonoBehaviour:
   - Market
   - Office
   - Main Menu
+  startingCash: 20000
+--- !u!114 &5878256390372182613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9081160137636629463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d8873dcd721f824f8384ad9898bcd18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
