@@ -54,16 +54,26 @@ public class TimeController : MonoBehaviour
         {
             newDay();
         }
-        mashTunTimeStep();
+        MashTunTimeStep();
+        KettleTimeStep();
         uIController.UpdateTimeText();
     }
 
-    void mashTunTimeStep()
+    void MashTunTimeStep()
     {
         GameObject[] mashTuns = GameObject.FindGameObjectsWithTag("mashTun");
         foreach(GameObject mashTun in mashTuns)
         {
             mashTun.GetComponent<MashTun>().OnTimeStepForward();
+        }
+    }
+
+    void KettleTimeStep()
+    {
+        GameObject[] kettles = GameObject.FindGameObjectsWithTag("kettle");
+        foreach(GameObject kettle in kettles)
+        {
+            kettle.GetComponent<Kettle>().OnTimestepForward();
         }
     }
 

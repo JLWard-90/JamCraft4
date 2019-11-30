@@ -59,6 +59,7 @@ public class InputManager : MonoBehaviour
     void SelectKettle(GameObject kettle)
     {
         Debug.Log("Selected kettle");
+        kettle.GetComponent<Kettle>().OnSelectThisKettle();
     }
 
     private void HandleInput1()

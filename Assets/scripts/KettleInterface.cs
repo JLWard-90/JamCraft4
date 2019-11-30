@@ -37,7 +37,7 @@ public class KettleInterface : MonoBehaviour
     {
         if (recipe != null)
         {
-            Text recipeText = GameObject.Find("RecipeInfo").GetComponent<Text>();
+            Text recipeText = GameObject.Find("RecipeText").GetComponent<Text>();
             recipeText.text = string.Format("Recipe: {0}\nStarting Gravity: {1}\nFinal Gravity: {2}\nABV: {3}\nColour: {4}\nBitterness: {5}", recipe.name, recipe.startingGravity.ToString("F3"), recipe.finalGravity.ToString("F3"), recipe.alcoholByVolume.ToString("F1"), (int)recipe.colour, (int)recipe.iBUs);
         }
     }
@@ -50,6 +50,9 @@ public class KettleInterface : MonoBehaviour
 
     public void OnTransferButton()
     {
+        if (thisKettle.readyToTransfer == true)
+        {
 
+        }
     }
 }

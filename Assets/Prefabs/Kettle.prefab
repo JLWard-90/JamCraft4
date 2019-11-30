@@ -561,6 +561,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6670189593894015468}
   - component: {fileID: 6351453731762753180}
+  - component: {fileID: -8190061036220418511}
   m_Layer: 0
   m_Name: Kettle
   m_TagString: kettle
@@ -599,6 +600,48 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.8857048, y: 4.109062, z: 3.5462132}
   m_Center: {x: 0.11316359, y: 2.148079, z: 0.056582928}
+--- !u!114 &-8190061036220418511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7694997825479353343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1acb4707a5f1ddb4686842e16282fc25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boiling: 0
+  empty: 1
+  readyToTransfer: 0
+  recipe:
+    batchsize: 0
+    yeast: Basic Ale Yeast
+    yeastIndex: 0
+    maltIndeces: 
+    malts: []
+    maltQuantities: []
+    hops: []
+    hopIndeces: 
+    hopTimes: 
+    hopAmounts: []
+    hopIBUs: []
+    colour: 0
+    iBUs: 0
+    name: Untitled Recipe
+    flavours: []
+    aromas: []
+    gravityIBURatio: 1
+    tastiness: 10
+    quality: 5
+    cost: 5
+    mouthFeel: 50
+    startingGravity: 1.045
+    finalGravity: 1.012
+    alcoholByVolume: 4.5
+  kettleInterfacePrefab: {fileID: 3636881823590305006, guid: cc8a73ee55b0f41498e0a92ac0a91750,
+    type: 3}
 --- !u!1 &8038649173560471801
 GameObject:
   m_ObjectHideFlags: 0

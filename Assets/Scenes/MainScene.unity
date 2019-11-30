@@ -292,52 +292,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd7f4ac0696c0054cbd5f62448c8bfd4, type: 3}
---- !u!1 &170897718 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7694997825479353343, guid: 6aaaf3c31ff04ac44a52ab937966c422,
-    type: 3}
-  m_PrefabInstance: {fileID: 1273696066}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &170897719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 170897718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1acb4707a5f1ddb4686842e16282fc25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boiling: 0
-  empty: 1
-  readyToTransfer: 0
-  recipe:
-    batchsize: 0
-    yeast: Basic Ale Yeast
-    yeastIndex: 0
-    maltIndeces: 
-    malts: []
-    maltQuantities: []
-    hops: []
-    hopIndeces: 
-    hopTimes: 
-    hopAmounts: []
-    hopIBUs: []
-    colour: 0
-    iBUs: 0
-    name: Untitled Recipe
-    flavours: []
-    aromas: []
-    gravityIBURatio: 1
-    tastiness: 10
-    quality: 5
-    cost: 5
-    mouthFeel: 50
-    startingGravity: 1.045
-    finalGravity: 1.012
-    alcoholByVolume: 4.5
 --- !u!1001 &235005404
 PrefabInstance:
   m_ObjectHideFlags: 0
