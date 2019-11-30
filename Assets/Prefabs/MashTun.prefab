@@ -479,6 +479,7 @@ GameObject:
   m_Component:
   - component: {fileID: 905816547943588315}
   - component: {fileID: -1393068504423267004}
+  - component: {fileID: 6254032262308448523}
   m_Layer: 0
   m_Name: MashTun
   m_TagString: mashTun
@@ -515,6 +516,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.152997, y: 4.4662385, z: 3.8234992}
   m_Center: {x: -0.024252415, y: 1.7331192, z: -0.19142365}
+--- !u!114 &6254032262308448523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4235990046543434696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae535ff70d20d5944a202a73f4e7cf8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mashing: 1
+  mashTunInterfacePrefab: {fileID: 0}
 --- !u!1 &4449449996659736397
 GameObject:
   m_ObjectHideFlags: 0

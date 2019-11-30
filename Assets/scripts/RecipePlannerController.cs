@@ -201,9 +201,14 @@ public class RecipePlannerController : MonoBehaviour
         float maltQuality = 0;
         //Debug.Log(maltIndeces.Count);
         //Debug.Log(maltQuantities.Count);
+        float totalMalt = 0;
+        for (int i = 0; i<maltIndeces.Count; i++)
+        {
+            totalMalt += maltQuantities[i];
+        }
         for (int i=0; i < maltIndeces.Count; i++)
         {
-            maltQuality += maltQuantities[i] * companyInventory.availableMalts[maltIndeces[i]].quality;//Weight quality by fractional quantity to return an average quality value
+            maltQuality += (maltQuantities[i]/totalMalt) * companyInventory.availableMalts[maltIndeces[i]].quality;//Weight quality by fractional quantity to return an average quality value
         }
         float hopQuality = 0;
         float hopQuantity = 0;

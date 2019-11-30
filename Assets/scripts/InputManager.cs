@@ -36,16 +36,18 @@ public class InputManager : MonoBehaviour
                 //Debug.Log(hit.collider.gameObject.name);
                 if (hit.collider.gameObject.tag == "mashTun")
                 {
-                    SelectMashTun();
+                    GameObject mashTunObject = hit.collider.gameObject;
+                    SelectMashTun(mashTunObject);
                 }
             }
         }
         
     }
 
-    void SelectMashTun()
+    void SelectMashTun(GameObject mashTunObject)
     {
         Debug.Log("Selected Mash Tun");
+
     }
 
     private void HandleInput1()

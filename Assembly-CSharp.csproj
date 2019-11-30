@@ -70,6 +70,7 @@
     <Compile Include="Assets\scripts\HopSliderController.cs" />
     <Compile Include="Assets\scripts\InputManager.cs" />
     <Compile Include="Assets\scripts\Inventory.cs" />
+    <Compile Include="Assets\scripts\Kettle.cs" />
     <Compile Include="Assets\scripts\LoadRecipeDialogue.cs" />
     <Compile Include="Assets\scripts\Malt.cs" />
     <Compile Include="Assets\scripts\maltSliderController.cs" />
