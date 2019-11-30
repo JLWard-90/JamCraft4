@@ -54,7 +54,17 @@ public class TimeController : MonoBehaviour
         {
             newDay();
         }
+        mashTunTimeStep();
         uIController.UpdateTimeText();
+    }
+
+    void mashTunTimeStep()
+    {
+        GameObject[] mashTuns = GameObject.FindGameObjectsWithTag("mashTun");
+        foreach(GameObject mashTun in mashTuns)
+        {
+            mashTun.GetComponent<MashTun>().OnTimeStepForward();
+        }
     }
 
     void newDay()

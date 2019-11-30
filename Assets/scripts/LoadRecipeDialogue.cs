@@ -33,6 +33,8 @@ public class LoadRecipeDialogue : MonoBehaviour
         this.openerType = openerType;
     }
 
+    
+
     public void OnExitButtonPress()
     {
         GameObject.Destroy(this.gameObject);
@@ -49,16 +51,10 @@ public class LoadRecipeDialogue : MonoBehaviour
                     recipePlannerController.LoadRecipe(recipeIndex);
                 }
                 break;
-            case "mash tun":
-                if (savedRecipes.Count > 0)
-                {
-                    int recipeIndex = GameObject.Find("RecipeDropdown").GetComponent<Dropdown>().value;
-                    mashTun.LoadRecipe(recipeIndex);
-                }
-                break;
         }
-        
-        
+        GameObject.Destroy(this.gameObject);
+
+
     }
 
     void SetupDropDownList()

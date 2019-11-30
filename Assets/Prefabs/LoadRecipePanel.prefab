@@ -1272,7 +1272,7 @@ GameObject:
   - component: {fileID: 8181930982819127173}
   m_Layer: 5
   m_Name: LoadRecipePanel
-  m_TagString: Untagged
+  m_TagString: menu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1348,6 +1348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4000625f88050314e86967909c685544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  openerType: 
 --- !u!1 &7818809573810920573
 GameObject:
   m_ObjectHideFlags: 0

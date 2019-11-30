@@ -25,10 +25,11 @@ public class InputManager : MonoBehaviour
 
     private void HandleInput0()
     {
+        GameObject[] menuList = GameObject.FindGameObjectsWithTag("menu");
         //Debug.Log("click");
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(inputRay, out hit))
+        if (Physics.Raycast(inputRay, out hit) && (menuList == null || menuList.Length == 0))
         {
             if (hit.collider != null)
             {
@@ -47,7 +48,7 @@ public class InputManager : MonoBehaviour
     void SelectMashTun(GameObject mashTunObject)
     {
         Debug.Log("Selected Mash Tun");
-
+        mashTunObject.GetComponent<MashTun>().OnSelectThisTun();
     }
 
     private void HandleInput1()
