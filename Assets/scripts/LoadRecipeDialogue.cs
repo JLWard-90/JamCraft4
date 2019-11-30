@@ -8,6 +8,8 @@ public class LoadRecipeDialogue : MonoBehaviour
     CompanyController companyController;
     List<Recipe> savedRecipes;
     RecipePlannerController recipePlannerController;
+    MashTunController mashTun;
+    public string openerType; //string containing the typeof object that is using the loader [recipe,mash tun,etc.]
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +19,11 @@ public class LoadRecipeDialogue : MonoBehaviour
         SetupDropDownList();
     }
 
+    public LoadRecipeDialogue(string openerType)
+    {
+        this.openerType = openerType;
+    }
+
     public void OnExitButtonPress()
     {
         GameObject.Destroy(this.gameObject);
@@ -24,11 +31,24 @@ public class LoadRecipeDialogue : MonoBehaviour
 
     public void OnLoadRecipeButton()
     {
-        if (savedRecipes.Count > 0)
+        switch (openerType)
         {
-            int recipeIndex = GameObject.Find("RecipeDropdown").GetComponent<Dropdown>().value;
-            recipePlannerController.LoadRecipe(recipeIndex);
+            case "recipe":
+                if (savedRecipes.Count > 0)
+                {
+                    int recipeIndex = GameObject.Find("RecipeDropdown").GetComponent<Dropdown>().value;
+                    recipePlannerController.LoadRecipe(recipeIndex);
+                }
+                break;
+            case "mash tun":
+                if (savedRecipes.Count > 0)
+                {
+                    int recipeIndex = GameObject.Find("RecipeDropdown").GetComponent<Dropdown>().value;
+                    mashTun.LoadRecipe(recipeIndex);
+                }
+                break;
         }
+        
         
     }
 
@@ -42,4 +62,6 @@ public class LoadRecipeDialogue : MonoBehaviour
         }
         recipeDropdown.RefreshShownValue();
     }
+
+
 }

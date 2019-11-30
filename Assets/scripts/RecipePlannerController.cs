@@ -65,6 +65,7 @@ public class RecipePlannerController : MonoBehaviour
         loadRecipeDialogue.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Right, 0, 0);
         loadRecipeDialogue.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
         loadRecipeDialogue.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
+        loadRecipeDialogue.GetComponent<LoadRecipeDialogue>().openerType = "recipe";
     }
 
     public void onSliderSlide(string sliderName, float sliderValue)
@@ -108,9 +109,9 @@ public class RecipePlannerController : MonoBehaviour
             {
                 grainIndeces.Add(grainIndex);
                 grainQuantities.Add(sliders[i].GetComponent<Slider>().value / 100f); //Divide by 100 to turn percentage into fraction
-                grainNames.Add(companyInventory.availableMalts[i].name); //get malt name from the malt held in the availableMalts list
+                grainNames.Add(companyInventory.availableMalts[grainIndex].name); //get malt name from the malt held in the availableMalts list
                 grainWeights.Add(grainWeight * sliders[i].GetComponent<Slider>().value / 100f);
-                grainEBCs.Add(companyInventory.availableMalts[i].EBC);
+                grainEBCs.Add(companyInventory.availableMalts[grainIndex].EBC);
             }
         }
         float colour = CalculateColour(waterVolume, grainEBCs, grainWeights);
