@@ -9,6 +9,7 @@ TagManager:
   - HopTypeDropDown
   - mashTun
   - menu
+  - kettle
   layers:
   - Default
   - TransparentFX

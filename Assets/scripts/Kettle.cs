@@ -33,5 +33,11 @@ public class Kettle : MonoBehaviour
     public void OnWortTransferIn(Recipe recipe)
     {
         this.recipe = recipe;
+        boiling = true;
+        empty = false;
     }
+
+
+
+
 }

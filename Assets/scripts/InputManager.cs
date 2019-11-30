@@ -40,6 +40,11 @@ public class InputManager : MonoBehaviour
                     GameObject mashTunObject = hit.collider.gameObject;
                     SelectMashTun(mashTunObject);
                 }
+                else if (hit.collider.gameObject.tag == "kettle")
+                {
+                    GameObject kettleObject = hit.collider.gameObject;
+                    SelectKettle(kettleObject);
+                }
             }
         }
         
@@ -49,6 +54,11 @@ public class InputManager : MonoBehaviour
     {
         Debug.Log("Selected Mash Tun");
         mashTunObject.GetComponent<MashTun>().OnSelectThisTun();
+    }
+
+    void SelectKettle(GameObject kettle)
+    {
+        Debug.Log("Selected kettle");
     }
 
     private void HandleInput1()
