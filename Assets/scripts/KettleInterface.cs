@@ -14,7 +14,7 @@ public class KettleInterface : MonoBehaviour
         UpdateStatusText();
     }
 
-    void UpdateStatusText()
+    public void UpdateStatusText()
     {
         string statusString = "";
         if (thisKettle.boiling == true)

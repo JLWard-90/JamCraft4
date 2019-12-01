@@ -28,6 +28,11 @@ public class Kettle : MonoBehaviour
                 boiling = false;
                 empty = false;
                 readyToTransfer = true;
+                GameObject kettleInterfaceObject = GameObject.Find("KettleInterface");
+                if (kettleInterfaceObject != null)
+                {
+                    kettleInterfaceObject.GetComponent<KettleInterface>().UpdateStatusText();
+                }
             }
         }
     }

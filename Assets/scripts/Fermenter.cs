@@ -41,4 +41,8 @@ public class Fermenter : MonoBehaviour
         }
     }
 
+    public void OnThisFermenterSelect()
+    {
+
+    }
 }
