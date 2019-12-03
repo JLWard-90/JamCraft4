@@ -12,6 +12,8 @@ public class Fermenter : MonoBehaviour
     int dayLength;
     float gravityDropPerTimeStep;
     public float currentGravity;
+    public int capacity = 200;
+    public int fermenterNumber = 0;
     // Start is called before the first frame update
     private void Start()
     {
@@ -43,6 +45,6 @@ public class Fermenter : MonoBehaviour
 
     public void OnThisFermenterSelect()
     {
-
+        Debug.Log("Fermenter selected");
     }
 }

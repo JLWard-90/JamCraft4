@@ -481,9 +481,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2208759749901287908}
+  - component: {fileID: 3813262399641251109}
   m_Layer: 0
   m_Name: Fermeter
-  m_TagString: Untagged
+  m_TagString: fermenter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -508,6 +509,49 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3813262399641251109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2953321848120210423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d30c48c8c0ee5245a5d1dce85123aa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fermenting: 0
+  readyToBottle: 0
+  empty: 1
+  recipe:
+    batchsize: 0
+    yeast: Basic Ale Yeast
+    yeastIndex: 0
+    maltIndeces: 
+    malts: []
+    maltQuantities: []
+    hops: []
+    hopIndeces: 
+    hopTimes: 
+    hopAmounts: []
+    hopIBUs: []
+    colour: 0
+    iBUs: 0
+    name: Untitled Recipe
+    flavours: []
+    aromas: []
+    gravityIBURatio: 1
+    tastiness: 10
+    quality: 5
+    cost: 5
+    mouthFeel: 50
+    startingGravity: 1.045
+    finalGravity: 1.012
+    alcoholByVolume: 4.5
+  currentGravity: 0
+  capacity: 200
+  fermenterNumber: 0
 --- !u!1 &3294758642847080689
 GameObject:
   m_ObjectHideFlags: 0

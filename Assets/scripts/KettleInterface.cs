@@ -7,6 +7,8 @@ public class KettleInterface : MonoBehaviour
 {
     public Recipe recipe;
     public Kettle thisKettle;
+    [SerializeField]
+    GameObject SelectFermenterPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +25,7 @@ public class KettleInterface : MonoBehaviour
         }
         else if (thisKettle.readyToTransfer == true)
         {
-            statusString = "Done!\n Ready fortransfer!";
+            statusString = "Done!\n Ready for transfer!";
         }
         else
         {
@@ -48,11 +50,66 @@ public class KettleInterface : MonoBehaviour
         GameObject.Destroy(this.gameObject);
     }
 
+    public void TransferWortToFermenter(Fermenter fermenter)
+    {
+        if (fermenter.empty == true)
+        {
+            Recipe currentRecipe = thisKettle.recipe;
+            fermenter.OnTransferWortIn(currentRecipe);
+            thisKettle.boiling = false;
+            thisKettle.readyToTransfer = false;
+            thisKettle.empty = true;
+        }
+        else
+        {
+            Debug.Log("Cannot transfer to fermenter: fermenter not empty!");
+        }
+    }
+
     public void OnTransferButton()
     {
         if (thisKettle.readyToTransfer == true)
         {
-
+            GameObject[] fermenters = GameObject.FindGameObjectsWithTag("fermenter");
+            List<GameObject> availableFermenters = new List<GameObject>();
+            foreach(GameObject fermenter in availableFermenters)
+            {
+                Fermenter fermenterComponent = fermenter.GetComponent<Fermenter>();
+                Debug.Log(fermenterComponent.empty);
+                if (fermenterComponent.empty == true)
+                {
+                    availableFermenters.Add(fermenter);
+                }
+            }
+            if (availableFermenters.Count < 1)
+            {
+                //If there are no available fermenters
+                Debug.Log("There are no empty fermenters available");
+            }
+            else
+            {
+                SpawnFermenterSelectMenu(availableFermenters);
+            }
         }
+        else
+        {
+            Debug.Log("This wort is not ready for transfer yet!");
+        }
+    }
+
+    void SpawnFermenterSelectMenu(List<GameObject> availableFermenters)
+    {
+        GameObject selectorMenu = GameObject.Instantiate(SelectFermenterPrefab);
+        selectorMenu.name = "SelectFermenterInterface";
+        selectorMenu.transform.SetParent(GameObject.Find("Canvas").transform);
+        selectorMenu.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Bottom, 0, 0);
+        selectorMenu.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, 0);
+        selectorMenu.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, 0);
+        selectorMenu.GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Right, 0, 0);
+        selectorMenu.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        selectorMenu.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+        selectorMenu.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
+        selectorMenu.GetComponent<FermenterSelectMenu>().kettleInterface = this;
+        selectorMenu.GetComponent<FermenterSelectMenu>().availableFermenters = availableFermenters;
     }
 }

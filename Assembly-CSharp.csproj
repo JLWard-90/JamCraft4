@@ -66,6 +66,7 @@
     <Compile Include="Assets\scripts\Beer.cs" />
     <Compile Include="Assets\scripts\CompanyController.cs" />
     <Compile Include="Assets\scripts\Fermenter.cs" />
+    <Compile Include="Assets\scripts\FermenterSelectMenu.cs" />
     <Compile Include="Assets\scripts\GameController.cs" />
     <Compile Include="Assets\scripts\grainWeightSlider.cs" />
     <Compile Include="Assets\scripts\Hops.cs" />

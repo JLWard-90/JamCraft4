@@ -603,6 +603,8 @@ MonoBehaviour:
     finalGravity: 1.012
     alcoholByVolume: 4.5
   thisKettle: {fileID: 0}
+  SelectFermenterPrefab: {fileID: 6419931462733369329, guid: 5b7700fc9bcdabe479a7e94df8ddbdb0,
+    type: 3}
 --- !u!1 &3959538477346994563
 GameObject:
   m_ObjectHideFlags: 0
